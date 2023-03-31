@@ -16,7 +16,7 @@ class CoreDataService: ObservableObject {
     let persistentContainer: NSPersistentContainer
     
     private init() {
-        persistentContainer = NSPersistentContainer(name: "PlanPoints")
+        persistentContainer = NSPersistentContainer(name: "Orders")
         persistentContainer.loadPersistentStores { description, error in
             guard error == nil else { print("Error of loading: \(error!.localizedDescription)"); return }
         }
@@ -31,7 +31,7 @@ class CoreDataService: ObservableObject {
         }
     }
     
-    func delPoint(point: PlanPoint){
+    func delPoint(point: Order){
         persistentContainer.viewContext.delete(point)
         
         do{
@@ -42,10 +42,11 @@ class CoreDataService: ObservableObject {
         }
     }
     
-    func savePoint(title: String, descript: String) {
-        let point = PlanPoint(context: persistentContainer.viewContext)
+    func savePoint(title: String, descript: String, type: String, price: String) {
+        let point = Order(context: persistentContainer.viewContext)
         point.title = title
-        point.active = false
+        point.type = type
+        point.price = price
         point.descript = descript
         point.time = Date()
         
@@ -56,8 +57,8 @@ class CoreDataService: ObservableObject {
         }
     }
     
-    func getAllPoints() -> [PlanPoint] {
-        let fetchRequest: NSFetchRequest<PlanPoint> = PlanPoint.fetchRequest()
+    func getAllPoints() -> [Order] {
+        let fetchRequest: NSFetchRequest<Order> = Order.fetchRequest()
         do {
             return try persistentContainer.viewContext.fetch(fetchRequest)
         } catch let error {

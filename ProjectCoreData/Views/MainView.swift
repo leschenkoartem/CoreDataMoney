@@ -10,38 +10,83 @@ import CoreData
 
 struct MainView: View {
     
-    @EnvironmentObject var pointsVM: PlanPointViewModel
+    @EnvironmentObject var pointsVM: OrderViewModel
     let vm: MainViewModel
     @State var title = ""
     @State var descript = ""
+    @State var price = ""
+    @State var type = "Інше"
     @State var isBigger = false
     @State var needRefresh = false
     
+    @State var showError = false
+    @State var ShowType = "Усі"
+    
+    @State var startDate = Calendar.current.date(from: DateComponents(year: 2010, month: 1, day: 1))!
+    @State var finishDate = Date()
+    
+    var DateRange: Range<Date> {
+        get { Range(uncheckedBounds: (lower: startDate, upper: Calendar.current.date(byAdding: .hour, value: 1, to: finishDate)!)) }
+    }
     
     var body: some View {
         NavigationView {
             ZStack {
                 
-                VStack{
-                    Spacer().frame(height: 150)
-                    List {
-                        ForEach(pointsVM.points, id: \.self){ point in
-                            NavigationLink() {
-                                InfoPointView(point: point, needRefresh: $needRefresh).navigationBarBackButtonHidden(true)
-                            } label: {
-                                Text(point.title!)
-                            }.listRowBackground(Color(.systemGray6))
-                        }.onDelete { IndexSet in
-                            IndexSet.forEach { index in
-                                let point = pointsVM.points[index]
-                                vm.delPoint(point: point)
-                                pointsVM.getPoints()
-                            }
+                ScrollView{
+                    
+                    Spacer().frame(height: 120)
+                    
+                    let lisrOrders = vm.getOrders(orders: pointsVM.orders, type: ShowType, date: DateRange)
+                    
+                    VStack(alignment: .leading){
+                        HStack{
+                            Text("Починаючи з: ")
+                            Spacer()
+                            DatePicker("",
+                                       selection: $startDate,
+                                       in: ...Date(),
+                                       displayedComponents: .date
+                            ).frame(maxWidth: 120)
                         }
-                    }.accentColor(needRefresh ? .white: .black)
-                        .listStyle(.plain)
-                        .padding(.horizontal)
-                }
+                        
+                        HStack{
+                            Text("Закінчуючи: ")
+                            Spacer()
+                            DatePicker("",
+                                       selection: $finishDate,
+                                       in: ...Date(),
+                                       displayedComponents: .date
+                            ).frame(maxWidth: 120)
+                        }
+                        
+                        HStack{
+                            Text("Категорія:")
+                            Spacer()
+                            Picker("Тип пошуку", selection: $ShowType) {
+                                ForEach(vm.categoryForShow, id: \.self) {
+                                    Text($0)
+                                }
+                            }.padding(.horizontal)
+                                .background(Color(.systemGray5))
+                                .cornerRadius(12)
+                        }
+                    }.padding(.horizontal, 30)
+                    
+                    VStack {
+                        Text("Сума витрат за даний час і в категорії: ") +
+                        Text(String(format: "%.2f", lisrOrders.0)).fontWeight(.bold)
+                    }.padding()
+                        .padding(.horizontal, 30)
+                    
+                    
+                    ForEach(lisrOrders.1, id: \.self){ order in
+                            
+                        OrderView(categ: vm.category, needRefresh: $needRefresh, pointsVM: pointsVM, vm: vm, order: order)
+                            
+                        }
+                }.frame(maxWidth: needRefresh ? .infinity: .infinity)
+
                 
                 VStack{
                     VStack {
@@ -52,12 +97,39 @@ struct MainView: View {
                             NeumorphicStyleTextField(text: "Title...", inputText: $title)
                                 .padding()
                             
+                            NeumorphicStyleTextField(text: "Price...", inputText: $price)
+                                .keyboardType(.numberPad)
+                                .padding()
+                            
+                            Picker("", selection: $type) {
+                                ForEach(vm.category, id: \.self) {
+                                    Text($0)
+                                }
+                            }.frame(maxWidth: 300)
+                                .background()
+                                .cornerRadius(12)
+                            
+                            
                             CustomTextEditor(text: $descript, placeholder: "Write your text...")
                                 .padding()
-                                
+                            
                             Button {
-                                vm.savePoint(title: title, descript: descript)
-                                pointsVM.getPoints()
+                                
+                                if Double(price) != nil && title != "" {
+                                    vm.savePoint(title: title,
+                                                 descript: descript,
+                                                 type: type == "" ? "Інше": type,
+                                                 price: price)
+
+                                    pointsVM.getPoints()
+                                    price = ""
+                                    title = ""
+                                    descript = ""
+                                } else {
+                                    showError.toggle()
+                                }
+                                
+                                
                             } label: {
                                 CustomButton(title: "Save")
                             }
@@ -82,11 +154,13 @@ struct MainView: View {
                         .cornerRadius(12)
                     
                     Spacer()
-
+                    
                 }.frame(maxWidth: .infinity)
                 
             }.edgesIgnoringSafeArea(.top)
                 .frame(maxWidth: .infinity)
+        }.alert("Помилка введення даних!", isPresented: $showError) {
+            Text("OK")
         }
     }
 }
@@ -94,6 +168,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(vm: MainViewModel()).environmentObject(PlanPointViewModel())
+        MainView(vm: MainViewModel()).environmentObject(OrderViewModel())
     }
 }

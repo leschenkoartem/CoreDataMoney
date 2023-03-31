@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct ProjectCoreDataApp: App {
    
-    @StateObject var pointVM = PlanPointViewModel()
+    @StateObject var pointVM = OrderViewModel()
     
     var body: some Scene {
         WindowGroup {

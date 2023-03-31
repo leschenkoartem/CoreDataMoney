@@ -8,16 +8,16 @@
 import Foundation
 import SwiftUI
 
-class PlanPointViewModel: ObservableObject{
+class OrderViewModel: ObservableObject{
     
     var CoreData = CoreDataService.shared
-    @Published var points = [PlanPoint]()
+    @Published var orders = [Order]()
     
     init(){
         getPoints()
     }
     
     func getPoints(){
-        points = CoreData.getAllPoints()
+        orders = CoreData.getAllPoints()
     }
 }

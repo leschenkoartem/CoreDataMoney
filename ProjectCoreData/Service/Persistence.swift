@@ -7,15 +7,15 @@
 
 import CoreData
 
-extension PlanPoint {
+extension Order {
     
     // Example PlanMovie for Xcode previews
-    static var example: PlanPoint {
+    static var example: Order {
         
         // Get the first PlanPoint from the in-memory Core Data store
         let context = CoreDataService.shared.persistentContainer.viewContext
         
-        let fetchRequest: NSFetchRequest<PlanPoint> = PlanPoint.fetchRequest()
+        let fetchRequest: NSFetchRequest<Order> = Order.fetchRequest()
         fetchRequest.fetchLimit = 1
         
         let results = try? context.fetch(fetchRequest)

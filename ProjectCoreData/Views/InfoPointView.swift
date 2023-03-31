@@ -10,12 +10,15 @@ import SwiftUI
 struct InfoPointView: View {
     
     @Environment(\.dismiss) var dismiss
-    var point: PlanPoint
+    var order: Order
     @State var active = false
     @State var title = ""
     @State var descript = ""
     @Binding var needRefresh: Bool
     @State var readWrite = false
+    
+    @State var type = ""
+    var categ: [String]
     
     let dateFormatter: DateFormatter = {
             let formatter = DateFormatter()
@@ -27,7 +30,7 @@ struct InfoPointView: View {
         ZStack{
             VStack {
                 
-                Text("Made in: \(dateFormatter.string(from: point.time!))")
+                Text("Made in: \(dateFormatter.string(from: order.time!))")
                     .opacity(0.6)
                     .font(.subheadline)
                     .padding(5)
@@ -35,8 +38,16 @@ struct InfoPointView: View {
                     .cornerRadius(3)
                 
                 if readWrite {
-                    NeumorphicStyleTextField(text: point.title ?? "Title...", inputText: $title)
+                    NeumorphicStyleTextField(text: order.title ?? "Title...", inputText: $title)
                         .padding()
+                    
+                    Picker(order.type!, selection: $type) {
+                        ForEach(categ, id: \.self) {
+                            Text($0)
+                        }
+                    }.frame(maxWidth: 300)
+                        .background()
+                        .cornerRadius(12)
                     
                     CustomTextEditor(text: $descript, placeholder: "Change text...")
                         .padding()
@@ -44,10 +55,15 @@ struct InfoPointView: View {
                     HStack {
                         Button {
                             if descript != ""{
-                                point.descript = descript
+                                order.descript = descript
                             }
+                            
                             if title != ""{
-                                point.title = title
+                                order.title = title
+                            }
+                            
+                            if type != "" {
+                                order.type = type
                             }
                             
                             CoreDataService.shared.updatePoint()
@@ -63,7 +79,14 @@ struct InfoPointView: View {
                         }
                     }
                 } else {
-                    Text(point.title ?? "")
+                    Text(order.type ?? "Усі").padding()
+                        .frame(maxWidth: .infinity)
+                        .background()
+                        .cornerRadius(12)
+                        .padding()
+                        .foregroundColor(Color(.label).opacity(0.75))
+                    
+                    Text(order.title ?? "")
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background()
@@ -71,7 +94,7 @@ struct InfoPointView: View {
                         .padding()
                         .foregroundColor(Color(.label).opacity(0.75))
                     
-                    Text(point.descript ?? "")
+                    Text(order.descript ?? "")
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background()
@@ -109,7 +132,7 @@ struct InfoPointView: View {
 
 struct InfoPointView_Previews: PreviewProvider {
     static var previews: some View {
-        InfoPointView(point: PlanPoint.example, needRefresh: .constant(false))
+        InfoPointView(order: Order.example, needRefresh: .constant(false), categ: ["Усі", "Продукти", "Комуналка", "Ремонт", "Розваги", "Подорожі", "Інше"])
     }
 }
 

@@ -13,13 +13,14 @@
 		E3B5442E29C7BDA6002BADD8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3B5442D29C7BDA6002BADD8 /* Preview Assets.xcassets */; };
 		E3B5443A29C871AF002BADD8 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5443929C871AF002BADD8 /* CoreDataService.swift */; };
 		E3B5443C29C87C2A002BADD8 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5443B29C87C2A002BADD8 /* MainViewModel.swift */; };
-		E3B5443E29C883B0002BADD8 /* PlanPointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5443D29C883B0002BADD8 /* PlanPointViewModel.swift */; };
+		E3B5443E29C883B0002BADD8 /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5443D29C883B0002BADD8 /* OrderViewModel.swift */; };
 		E3B5444329C8BFD1002BADD8 /* InfoPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5444229C8BFD1002BADD8 /* InfoPointView.swift */; };
-		E3B5446729C8E23C002BADD8 /* PlanPoints.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E3B5446529C8E23C002BADD8 /* PlanPoints.xcdatamodeld */; };
+		E3B5446729C8E23C002BADD8 /* Orders.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E3B5446529C8E23C002BADD8 /* Orders.xcdatamodeld */; };
 		E3B5446B29C8E38B002BADD8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5446A29C8E38A002BADD8 /* Persistence.swift */; };
 		E3B5448D29C8EEE8002BADD8 /* NeumorphicStyleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5448C29C8EEE8002BADD8 /* NeumorphicStyleTextField.swift */; };
 		E3B5448F29C8F1C8002BADD8 /* CustomTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5448E29C8F1C8002BADD8 /* CustomTextEditor.swift */; };
 		E3B5449129C8F5D9002BADD8 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B5449029C8F5D9002BADD8 /* CustomButton.swift */; };
+		E3C5967229D6E61F00B9EC6E /* OrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C5967129D6E61F00B9EC6E /* OrderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,13 +31,14 @@
 		E3B5442D29C7BDA6002BADD8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E3B5443929C871AF002BADD8 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		E3B5443B29C87C2A002BADD8 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		E3B5443D29C883B0002BADD8 /* PlanPointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanPointViewModel.swift; sourceTree = "<group>"; };
+		E3B5443D29C883B0002BADD8 /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		E3B5444229C8BFD1002BADD8 /* InfoPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPointView.swift; sourceTree = "<group>"; };
 		E3B5446629C8E23C002BADD8 /* ProjectCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectCoreData.xcdatamodel; sourceTree = "<group>"; };
 		E3B5446A29C8E38A002BADD8 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		E3B5448C29C8EEE8002BADD8 /* NeumorphicStyleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeumorphicStyleTextField.swift; sourceTree = "<group>"; };
 		E3B5448E29C8F1C8002BADD8 /* CustomTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextEditor.swift; sourceTree = "<group>"; };
 		E3B5449029C8F5D9002BADD8 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		E3C5967129D6E61F00B9EC6E /* OrderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +76,7 @@
 				E3B5443F29C88668002BADD8 /* ViewModels */,
 				E3B5444129C8BF99002BADD8 /* Views */,
 				E3B5448B29C8EED3002BADD8 /* Components */,
-				E3B5446529C8E23C002BADD8 /* PlanPoints.xcdatamodeld */,
+				E3B5446529C8E23C002BADD8 /* Orders.xcdatamodeld */,
 				E3B5442A29C7BDA6002BADD8 /* Assets.xcassets */,
 				E3B5442C29C7BDA6002BADD8 /* Preview Content */,
 			);
@@ -92,7 +94,7 @@
 		E3B5443F29C88668002BADD8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				E3B5443D29C883B0002BADD8 /* PlanPointViewModel.swift */,
+				E3B5443D29C883B0002BADD8 /* OrderViewModel.swift */,
 				E3B5443B29C87C2A002BADD8 /* MainViewModel.swift */,
 			);
 			path = ViewModels;
@@ -112,6 +114,7 @@
 			children = (
 				E3B5442829C7BDA4002BADD8 /* MainView.swift */,
 				E3B5444229C8BFD1002BADD8 /* InfoPointView.swift */,
+				E3C5967129D6E61F00B9EC6E /* OrderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -202,9 +205,10 @@
 				E3B5446B29C8E38B002BADD8 /* Persistence.swift in Sources */,
 				E3B5448F29C8F1C8002BADD8 /* CustomTextEditor.swift in Sources */,
 				E3B5444329C8BFD1002BADD8 /* InfoPointView.swift in Sources */,
-				E3B5446729C8E23C002BADD8 /* PlanPoints.xcdatamodeld in Sources */,
+				E3B5446729C8E23C002BADD8 /* Orders.xcdatamodeld in Sources */,
 				E3B5449129C8F5D9002BADD8 /* CustomButton.swift in Sources */,
-				E3B5443E29C883B0002BADD8 /* PlanPointViewModel.swift in Sources */,
+				E3B5443E29C883B0002BADD8 /* OrderViewModel.swift in Sources */,
+				E3C5967229D6E61F00B9EC6E /* OrderView.swift in Sources */,
 				E3B5443C29C87C2A002BADD8 /* MainViewModel.swift in Sources */,
 				E3B5448D29C8EEE8002BADD8 /* NeumorphicStyleTextField.swift in Sources */,
 			);
@@ -417,13 +421,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E3B5446529C8E23C002BADD8 /* PlanPoints.xcdatamodeld */ = {
+		E3B5446529C8E23C002BADD8 /* Orders.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				E3B5446629C8E23C002BADD8 /* ProjectCoreData.xcdatamodel */,
 			);
 			currentVersion = E3B5446629C8E23C002BADD8 /* ProjectCoreData.xcdatamodel */;
-			path = PlanPoints.xcdatamodeld;
+			path = Orders.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
