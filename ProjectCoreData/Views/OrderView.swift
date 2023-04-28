@@ -25,7 +25,7 @@ struct OrderView: View {
     
     var body: some View {
         
-            VStack(spacing: 5){
+            VStack(spacing: 5) {
                 Spacer().frame(height: 10)
                 HStack{
                     Text(order.title ?? "")
@@ -43,7 +43,7 @@ struct OrderView: View {
                 
                 HStack{
                     Spacer().frame(width: 20)
-                    Text("Витрата:").fontWeight(.bold)
+                    Text(order.vitNad! + ":").fontWeight(.bold)
                     Text(order.price ?? "")
                     Spacer()
                 }
@@ -83,7 +83,7 @@ struct OrderView: View {
 
                 Spacer()
                 
-            }
+            }.background(order.vitNad == "Витрата" ? .red.opacity(0.2) : .green.opacity(0.2))
             .confirmationDialog("Ви впевнені, що бажаєте це видалити", isPresented: $showDialog, actions: {
                 
                 Button {

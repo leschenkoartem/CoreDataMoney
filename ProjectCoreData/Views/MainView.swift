@@ -18,8 +18,10 @@ struct MainView: View {
     @State var type = "Інше"
     @State var isBigger = false
     @State var needRefresh = false
-    
+    @State var vitNad = "Витрата"
     @State var showError = false
+    
+    @State var showVitNad = "Усі"
     @State var ShowType = "Усі"
     
     @State var startDate = Calendar.current.date(from: DateComponents(year: 2010, month: 1, day: 1))!
@@ -37,7 +39,7 @@ struct MainView: View {
                     
                     Spacer().frame(height: 120)
                     
-                    let lisrOrders = vm.getOrders(orders: pointsVM.orders, type: ShowType, date: DateRange)
+                    let lisrOrders = vm.getOrders(orders: pointsVM.orders, type: ShowType, typeVit: showVitNad, date: DateRange)
                     
                     VStack(alignment: .leading){
                         HStack{
@@ -63,32 +65,40 @@ struct MainView: View {
                         HStack{
                             Text("Категорія:")
                             Spacer()
-                            Picker("Тип пошуку", selection: $ShowType) {
-                                ForEach(vm.categoryForShow, id: \.self) {
-                                    Text($0)
-                                }
-                            }.padding(.horizontal)
-                                .background(Color(.systemGray5))
-                                .cornerRadius(12)
+                            VStack {
+                                Picker("Тип пошуку", selection: $ShowType) {
+                                    ForEach(vm.categoryForShow, id: \.self) {
+                                        Text($0)
+                                    }
+                                }.padding(.horizontal)
+                                    .frame(width: 200)
+                                    .background(Color(.systemGray5))
+                                    .cornerRadius(12)
+                                Picker("", selection: $showVitNad) {
+                                    Text("Витрата").tag("Витрата")
+                                    Text("Надходження").tag("Надходження")
+                                    Text("Усі").tag("Усі")
+                                }.padding(.horizontal)
+                                    .frame(width: 200)
+                                    .background(Color(.systemGray5))
+                                    .cornerRadius(12)
+                            }
                         }
                     }.padding(.horizontal, 30)
                     
                     VStack {
-                        Text("Сума витрат за даний час і в категорії: ") +
+                        Text("Сума \(showVitNad == "Надходження" ? "надходжень": "витрат") за даний час і в категорії: ") +
                         Text(String(format: "%.2f", lisrOrders.0)).fontWeight(.bold)
                     }.padding()
                         .padding(.horizontal, 30)
                     
-                    
                     ForEach(lisrOrders.1, id: \.self){ order in
-                            
                         OrderView(categ: vm.category, needRefresh: $needRefresh, pointsVM: pointsVM, vm: vm, order: order)
-                            
                         }
                 }.frame(maxWidth: needRefresh ? .infinity: .infinity)
 
                 
-                VStack{
+                VStack {
                     VStack {
                         Spacer().frame(height: isBigger ? 0: 75)
                         
@@ -101,14 +111,22 @@ struct MainView: View {
                                 .keyboardType(.numberPad)
                                 .padding()
                             
-                            Picker("", selection: $type) {
-                                ForEach(vm.category, id: \.self) {
-                                    Text($0)
-                                }
-                            }.frame(maxWidth: 300)
-                                .background()
-                                .cornerRadius(12)
-                            
+                            HStack {
+                                Picker("", selection: $type) {
+                                    ForEach(vm.category, id: \.self) {
+                                        Text($0)
+                                    }
+                                }.frame(maxWidth: 300)
+                                    .background()
+                                    .cornerRadius(12)
+                                
+                                Picker("", selection: $vitNad) {
+                                    Text("Витрата").tag("Витрата")
+                                    Text("Надходження").tag("Надходження")
+                                }.frame(maxWidth: 300)
+                                    .background()
+                                    .cornerRadius(12)
+                            }.padding()
                             
                             CustomTextEditor(text: $descript, placeholder: "Write your text...")
                                 .padding()
@@ -119,7 +137,7 @@ struct MainView: View {
                                     vm.savePoint(title: title,
                                                  descript: descript,
                                                  type: type == "" ? "Інше": type,
-                                                 price: price)
+                                                 price: price, vitNad: vitNad)
 
                                     pointsVM.getPoints()
                                     price = ""

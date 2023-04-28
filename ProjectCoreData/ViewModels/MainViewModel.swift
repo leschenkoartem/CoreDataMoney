@@ -18,15 +18,15 @@ class MainViewModel{
             list.append("Усі")
             return list
     }
-    func savePoint(title: String, descript: String, type: String, price: String){
-        CoreData.savePoint(title: title, descript: descript, type: type, price: price)
+    func savePoint(title: String, descript: String, type: String, price: String, vitNad: String){
+        CoreData.savePoint(title: title, descript: descript, type: type, price: price, vitNad: vitNad)
     }
     
     func delPoint(point: Order){
         CoreData.delPoint(point: point)
     }
     
-    func getOrders(orders: [Order], type: String, date: Range<Date>) -> (Double, [Order]) {
+    func getOrders(orders: [Order], type: String, typeVit: String, date: Range<Date>) -> (Double, [Order]) {
         var ordersFin =  orders
         
         switch type{
@@ -48,7 +48,11 @@ class MainViewModel{
             ordersFin =  orders
         }
         
-        
-        return (ordersFin.reduce(0.0){$0 + Double($1.price!)!}, ordersFin.filter {date.contains($0.time!)})
+        if typeVit == "Усі" {
+            return (ordersFin.reduce(0.0){$0 + Double($1.price!)!}, ordersFin.filter {date.contains($0.time!)})
+        } else {
+            ordersFin = ordersFin.filter {date.contains($0.time!) && $0.vitNad == typeVit}
+            return (ordersFin.reduce(0.0){$0 + Double($1.price!)!}, ordersFin)
+        }
     }
 }

@@ -16,8 +16,8 @@ struct InfoPointView: View {
     @State var descript = ""
     @Binding var needRefresh: Bool
     @State var readWrite = false
-    
     @State var type = ""
+    @State var vitNad = "Витрата"
     var categ: [String]
     
     let dateFormatter: DateFormatter = {
@@ -41,14 +41,15 @@ struct InfoPointView: View {
                     NeumorphicStyleTextField(text: order.title ?? "Title...", inputText: $title)
                         .padding()
                     
-                    Picker(order.type!, selection: $type) {
-                        ForEach(categ, id: \.self) {
-                            Text($0)
-                        }
-                    }.frame(maxWidth: 300)
-                        .background()
-                        .cornerRadius(12)
-                    
+                    HStack {
+                        Picker(order.type!, selection: $type) {
+                            ForEach(categ, id: \.self) {
+                                Text($0)
+                            }
+                        }.frame(maxWidth: 300)
+                            .background()
+                            .cornerRadius(12)
+                    }
                     CustomTextEditor(text: $descript, placeholder: "Change text...")
                         .padding()
                     
@@ -79,13 +80,21 @@ struct InfoPointView: View {
                         }
                     }
                 } else {
-                    Text(order.type ?? "Усі").padding()
-                        .frame(maxWidth: .infinity)
-                        .background()
-                        .cornerRadius(12)
-                        .padding()
-                        .foregroundColor(Color(.label).opacity(0.75))
-                    
+                    HStack {
+                        Text(order.type ?? "Усі").padding()
+                            .frame(maxWidth: .infinity)
+                            .background()
+                            .cornerRadius(12)
+                            .padding()
+                            .foregroundColor(Color(.label).opacity(0.75))
+                        
+                        Text(order.vitNad!).padding()
+                            .frame(maxWidth: .infinity)
+                            .background()
+                            .cornerRadius(12)
+                            .padding()
+                            .foregroundColor(Color(.label).opacity(0.75))
+                    }
                     Text(order.title ?? "")
                         .padding()
                         .frame(maxWidth: .infinity)

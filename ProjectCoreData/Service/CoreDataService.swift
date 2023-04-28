@@ -42,12 +42,13 @@ class CoreDataService: ObservableObject {
         }
     }
     
-    func savePoint(title: String, descript: String, type: String, price: String) {
+    func savePoint(title: String, descript: String, type: String, price: String, vitNad: String) {
         let point = Order(context: persistentContainer.viewContext)
         point.title = title
         point.type = type
         point.price = price
         point.descript = descript
+        point.vitNad = vitNad
         point.time = Date()
         
         do {
